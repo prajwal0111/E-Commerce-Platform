@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saha Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Dark Theme */
+        body.dark-theme {
+            background-color: #1e293b;
+            color: #e2e8f0;
+        }
+
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(90deg, #2dd4bf, #14b8a6);
+            color: white;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: fadeIn 1s ease-in forwards;
+        }
+
+        body.dark-theme .header {
+            background: linear-gradient(90deg, #0d9488, #115e59);
+        }
+
+        .header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .search-bar {
+            display: flex;
+            flex: 1;
+            max-width: 700px;
+            margin: 0 20px;
+        }
+
+        .search-bar select,
+        .search-bar input {
+            padding: 10px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+        }
+
+        .search-bar select {
+            background-color: #e2e8f0;
+            border-radius: 8px 0 0 8px;
+        }
+
+        body.dark-theme .search-bar select {
+            background-color: #475569;
+            color: #e2e8f0;
+        }
+
+        .search-bar input {
+            flex: 1;
+            border-radius: 0;
+            background-color: #ffffff;
+        }
+
+        body.dark-theme .search-bar input {
+            background-color: #475569;
+            color: #e2e8f0;
+        }
+
+        .search-bar button {
+            background: linear-gradient(90deg, #2dd4bf, #14b8a6);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 0 8px 8px 0;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .search-bar button:hover {
+            transform: scale(1.05);
+            background: linear-gradient(90deg, #f472b6, #ec4899);
+        }
+
+        .user-options {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .user-options a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 400;
+        }
+
+        .user-options a:hover {
+            color: #f472b6;
+        }
+
+        .cart {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 5px;
+            transition: transform 0.2s;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            color: #f472b6;
+        }
+
+        /* Navigation */
+        .nav {
+            background: linear-gradient(90deg, #14b8a6, #0d9488);
+            padding: 10px 20px;
+            position: sticky;
+            top: 70px;
+            z-index: 999;
+            animation: fadeIn 1s ease-in forwards;
+        }
+
+        body.dark-theme .nav {
+            background: linear-gradient(90deg, #115e59, #0f766e);
+        }
+
+        .nav ul {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 400;
+            padding: 8px 12px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .nav ul li a:hover {
+            background-color: #f472b6;
+            border-radius: 4px;
+            transform: scale(1.05);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 350px;
+            background: url('https://via.placeholder.com/1920x350?text=Saha+Store+Banner') center/cover no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            animation: fadeIn 1s ease-in forwards;
+            margin-bottom: 30px;
+        }
+
+        .hero-content {
+            background: linear-gradient(135deg, rgba(20, 184, 166, 0.6), rgba(13, 148, 136, 0.4));
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        body.dark-theme .hero-content {
+            background: linear-gradient(135deg, rgba(17, 94, 89, 0.6), rgba(15, 118, 110, 0.4));
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+        }
+
+        .hero .cta-button {
+            background: linear-gradient(90deg, #2dd4bf, #14b8a6);
+            color: #1e293b;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .hero .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(90deg, #f472b6, #ec4899);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 20px auto;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .product-card {
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        body.dark-theme .product-card {
+            background-color: #334155;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 12px 24px rgba(45, 212, 191, 0.4);
+        }
+
+        body.dark-theme .product-card:hover {
+            box-shadow: 0 12px 24px rgba(45, 212, 191, 0.6);
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: 160px;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card img:hover {
+            transform: scale(1.1);
+        }
+
+        .product-card h3 {
+            font-size: 18px;
+            font-weight: 500;
+            margin: 12px 0;
+            color: #1e293b;
+        }
+
+        body.dark-theme .product-card h3 {
+            color: #e2e8f0;
+        }
+
+        .product-card .price {
+            color: #f472b6;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .product-card button {
+            background: linear-gradient(90deg, #2dd4bf, #14b8a6);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+            color: #1e293b;
+            transition: transform 0.3s;
+        }
+
+        .product-card button:hover {
+            transform: scale(1.05);
+            background: linear-gradient(90deg, #f472b6, #ec4899);
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(90deg, #0d9488, #14b8a6);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            margin-top: 40px;
+            animation: fadeIn 1s ease-in forwards;
+        }
+
+        body.dark-theme .footer {
+            background: linear-gradient(90deg, #0f766e, #115e59);
+        }
+
+        .footer a {
+            color: #f472b6;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 14px;
+        }
+
+        .footer a:hover {
+            color: #e2e8f0;
+        }
+
+        .footer p {
+            margin: 10px 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-top {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .search-bar {
+                margin: 15px 0;
+                width: 100%;
+            }
+
+            .user-options {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav {
+                top: 160px;
+            }
+
+            .nav ul {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+
+            .hero {
+                height: 250px;
+            }
+
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .hero .cta-button {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .logo {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-top">
+            <div class="logo">
+                <img src="https://i.ibb.co/1YJMfgqr/image-1.jpg" alt="Saha Store Logo">
+            </div>
+            <div class="search-bar">
+                <select>
+                    <option>All</option>
+                    <option>Electronics</option>
+                    <option>Books</option>
+                </select>
+                <input type="text" placeholder="Search Saha Store">
+                <button>🔍</button>
+            </div>
+            <div class="user-options">
+                <a href="#">Hello, Sign in</a>
+                <a href="#">Orders</a>
+                <div class="cart">
+                    <span>🛒</span>
+                    <a href="#">Cart</a>
+                </div>
+                <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+            </div>
+        </div>
+    </header>
+
+    <nav class="nav">
+        <ul>
+            <li><a href="#">All</a></li>
+            <li><a href="#">Today's Deals</a></li>
+            <li><a href="#">Customer Service</a></li>
+            <li><a href="#">Registry</a></li>
+            <li><a href="#">Gift Cards</a></li>
+            <li><a href="#">Sell</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Welcome to Saha Store!</h2>
+            <p>Explore exclusive deals with up to 50% off today!</p>
+            <a href="#" class="cta-button">Shop Now</a>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <section class="product-grid">
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=160&q=80" alt="Wireless Headphones">
+                <h3>Wireless Noise-Cancelling Headphones</h3>
+                <div class="price">$79.99</div>
+                <button>Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://images.jdmagicbox.com/quickquotes/images_main/hp-omen-17-an010tx-2017-newest-17-3-inch-full-hd-high-performance-gaming-laptop-7th-gen-intel-i7-1tb-hdd-16gb-ram-nvidia-gtx-1070-6gb-win10-80100856-wvg9m.jpg" alt="Gaming Laptop">
+                <h3>High-Performance Gaming Laptop</h3>
+                <div class="price">$1299.99</div>
+                <button>Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=160&q=80" alt="Bestseller Book">
+                <h3>Bestseller Fiction Novel</h3>
+                <div class="price">$14.99</div>
+                <button>Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://drtrust.in/cdn/shop/products/dr-trust-healthpal-2-smart-watch-1-7-hd-display-calling-feature-heart-rate-spo2-29295394029614_700x700.jpg?v=1682060006" alt="Smartwatch">
+                <h3>Fitness Tracking Smartwatch</h3>
+                <div class="price">$199.99</div>
+                <button>Add to Cart</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>
+            <a href="#">Conditions of Use</a>
+            <a href="#">Privacy Notice</a>
+            <a href="#">Your Ads Privacy Choices</a>
+        </p>
+        <p>© 2025 Saha Store, Inc. or its affiliates</p>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('dark-theme');
+            const themeToggle = document.querySelector('.theme-toggle');
+            themeToggle.textContent = document.body.classList.contains('dark-theme') ? '☀️' : '🌙';
+        }
+    </script>
+</body>
+</html>
